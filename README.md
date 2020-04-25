@@ -88,9 +88,7 @@ class FeatureFlags
       anonymous: false,
       custom: {
         evaluation_datetime: Time.now.utc.to_i * 1000,
-        site_id: Current.site.uuid,
-        account_id: Current.account.uuid,
-        company_id: Current.company.uuid
+        tenant_id: Current.tenant.uuid
       }
     }
   end
@@ -122,14 +120,23 @@ end
 Then use it like this in a spec to set up a feature flag in memory:
 
 ```ruby
-RSpec.describe TestController do
+class SomeFeatureFlagDependentService
+  def run
+    if FeatureFlags.evaluate(:some_feature_flag, "bad_variation") == "good_variation"
+      "good"
+    else
+      "bad"
+    end
+  end
+end
+
+RSpec.describe SomeFeatureFlagDependentService do
   it "returns the OFF variation when that is received" do
-    FeatureFlagging::SpecUtils.set_flag_variation(:connectivity_diagnostics_test, "\"OFF\" Variation Served from Spec")
+    FeatureFlagging::SpecUtils.set_flag_variation(:some_feature_flag, "good_variation")
   
-    get :feature_flagging
+    result = SomeFeatureFlagDependentService.run
   
-    expect(response).to be_successful
-    expect(response.body).to eq("\"OFF\" Variation Served from Spec")
+    expect(result).to eq("good")
   end
 end
 ```
