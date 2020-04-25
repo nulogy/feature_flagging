@@ -50,6 +50,12 @@ if Rails.env.test?
 end
 ```
 
+## Upgrading
+
+To upgrade to the latest version on `master`, run:
+
+    $ bundle update feature_flagging
+
 ## Usage
 
 ### Adapter over this gem
