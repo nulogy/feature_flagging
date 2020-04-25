@@ -24,18 +24,22 @@ module FeatureFlagging
 
     def config_hash
       if @sdk_key
-        Rails.logger.info("Starting LaunchDarkly client in online mode")
+        log("Starting feature flagging client in online mode")
         ConfigHashBuilder.online_mode
       elsif Rails.env.production?
-        Rails.logger.info("Starting LaunchDarkly client in offline production mode")
+        log("Starting feature flagging client in offline production mode")
         ConfigHashBuilder.offline_production_mode
       elsif Rails.env.development?
-        Rails.logger.info("Starting LaunchDarkly client in offline development mode")
+        log("Starting feature flagging client in offline development mode")
         ConfigHashBuilder.offline_development_mode
       elsif Rails.env.test?
-        Rails.logger.info("Starting LaunchDarkly client in offline test mode")
+        log("Starting feature flagging client in offline test mode")
         ConfigHashBuilder.offline_test_mode
       end
+    end
+
+    def log(message)
+      Rails.logger.info(message)
     end
   end
 end
