@@ -14,9 +14,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "launchdarkly-server-sdk", "5.7.2"
+  spec.add_dependency "launchdarkly-server-sdk", "~> 6.1"
 
-  spec.add_development_dependency "listen", "3.2.1"
-  spec.add_development_dependency "rake", "13.0.1"
-  spec.add_development_dependency "rspec", "3.9.0"
+  spec.add_development_dependency "listen", "~> 3.5.0"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.10"
 end
