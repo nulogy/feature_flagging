@@ -52,7 +52,7 @@ end
 
 ## Upgrading
 
-To upgrade to the latest version on `master`, run:
+To upgrade to the latest version on `main`, run:
 
     $ bundle update feature_flagging
 
